@@ -143,6 +143,7 @@ namespace Calculator
 
         private void button_putaway_Click(object sender, EventArgs e)
         {
+
             int position_last = label_result.Text.Length - 1;
             label_result.Text = label_result.Text.Remove(position_last);
             if (label_result.Text.Length == 0)
@@ -276,65 +277,43 @@ namespace Calculator
         }
         private string CountExample(List<string> list)
         {
-            double Num;
+            double Num = 0;
             while(list.Count > 1)
             {
                 for (int i = 0; i < list.Count; i++)
                 {
-                    if (list[i] == "+")
+                    if (list[i] == "+" || list[i] == "-" || list[i] == "*" || list[i] == "/" || list[i] == "^")
                     {
-                        Num = Convert.ToDouble(list[i - 2]) + Convert.ToDouble(list[i - 1]);
+                        if (list[i] == "+")
+                        {
+                            Num = Convert.ToDouble(list[i - 2]) + Convert.ToDouble(list[i - 1]);
+                        }
+                        else if (list[i] == "-")
+                        {
+                            Num = Convert.ToDouble(list[i - 2]) - Convert.ToDouble(list[i - 1]);
+                        }
+                        else if (list[i] == "*")
+                        {
+                            Num = Convert.ToDouble(list[i - 2]) * Convert.ToDouble(list[i - 1]);
+                        }
+                        else if (list[i] == "/")
+                        {
+                            Num = Convert.ToDouble(list[i - 2]) / Convert.ToDouble(list[i - 1]);
+                        }
+                        else if (list[i] == "^")
+                        {
+                            Num = Math.Pow(Convert.ToDouble(list[i - 2]), Convert.ToDouble(list[i - 1]));
+                        }
                         list.RemoveAt(i - 1);
                         i--;
                         list.RemoveAt(i - 1);
                         i--;
                         list[i] = Convert.ToString(Num);
-                        break;
-                    }
-                    if (list[i] == "-")
-                    {
-                        Num = Convert.ToDouble(list[i - 2]) - Convert.ToDouble(list[i - 1]);
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list[i] = Convert.ToString(Num);
-                        break;
-                    }
-                    if (list[i] == "*")
-                    {
-                        Num = Convert.ToDouble(list[i - 2]) * Convert.ToDouble(list[i - 1]);
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list[i] = Convert.ToString(Num);
-                        break;
-                    }
-                    if (list[i] == "/")
-                    {
-                        Num = Convert.ToDouble(list[i - 2]) / Convert.ToDouble(list[i - 1]);
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list[i] = Convert.ToString(Num);
-                        break;
-                    }
-                    if (list[i] == "^")
-                    {
-                        Num = Math.Pow(Convert.ToDouble(list[i - 2]) , Convert.ToDouble(list[i - 1]));
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list.RemoveAt(i - 1);
-                        i--;
-                        list[i] = Convert.ToString(Num);
-                        break;
                     }
                 }
             }
             string answer = list[0];
-            if (answer.Length >= 13)
+            if (answer.Length > 13)
             {
                 answer = answer.Remove(13);
             }
